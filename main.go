@@ -199,12 +199,12 @@ func cmd() *cobra.Command {
 			switch listenURL.Scheme {
 			case "http":
 				log.Printf("listening on %s", listen)
-				go open(listen)
+				go a.open(listen)
 				go a.waitShutdown()
 				return http.ListenAndServe(listenURL.Host, nil)
 			case "https":
 				log.Printf("listening on %s", listen)
-				go open(listen)
+				go a.open(listen)
 				go a.waitShutdown()
 				return http.ListenAndServeTLS(listenURL.Host, tlsCert, tlsKey, nil)
 			default:
@@ -214,10 +214,10 @@ func cmd() *cobra.Command {
 	}
 
 	// Configurable variables
-	c.Flags().StringVar(&a.clientID, "client-id", "kubernetes", "OAuth2 client ID of this application.")
-	c.Flags().StringVar(&a.clientSecret, "client-secret", "c3VwZXJzZWNyZXRzdHJpbmcK", "OAuth2 client secret of this application.")
+	c.Flags().StringVar(&a.clientID, "client-id", "242027759943-md9d6cjqf5euu8qarfdmuukncj99qo9v.apps.googleusercontent.com", "OAuth2 client ID of this application.")
+	c.Flags().StringVar(&a.clientSecret, "client-secret", "", "OAuth2 client secret of this application.")
 	c.Flags().StringVar(&a.redirectURI, "redirect-uri", "http://127.0.0.1:5555/callback", "Callback URL for OAuth2 responses.")
-	c.Flags().StringVar(&issuerURL, "issuer", "http://127.0.0.1:5556/dex", "URL of the OpenID Connect issuer.")
+	c.Flags().StringVar(&issuerURL, "issuer", "https://accounts.google.com", "URL of the OpenID Connect issuer.")
 	c.Flags().StringVar(&listen, "listen", "http://127.0.0.1:5555", "HTTP(S) address to listen at.")
 	c.Flags().StringVar(&tlsCert, "tls-cert", "", "X509 cert file to present when serving HTTPS.")
 	c.Flags().StringVar(&tlsKey, "tls-key", "", "Private key for the HTTPS cert.")
@@ -248,14 +248,17 @@ func (a *app) handleLogin(w http.ResponseWriter, r *http.Request) {
 	var scopes []string
 
 	var authCodeURL string
-	scopes = append(scopes, "groups", "openid", "profile", "email")
+	scopes = append(scopes, "openid", "profile", "email")
 	if a.offlineAsScope {
 		scopes = append(scopes, "offline_access")
-		authCodeURL = a.oauth2Config(scopes).AuthCodeURL(exampleAppState)
+		authCodeURL = a.oauth2Config(scopes).AuthCodeURL(exampleAppState, oauth2.SetAuthURLParam("prompt", "consent"))
 	} else {
-		authCodeURL = a.oauth2Config(scopes).AuthCodeURL(exampleAppState, oauth2.AccessTypeOffline)
+		authCodeURL = a.oauth2Config(scopes).AuthCodeURL(exampleAppState, oauth2.SetAuthURLParam("prompt", "consent"), oauth2.AccessTypeOffline)
 	}
 
+	if a.debug {
+		fmt.Printf("Redirecting to: %s\n", authCodeURL)
+	}
 	http.Redirect(w, r, authCodeURL, http.StatusSeeOther)
 }
 
@@ -421,7 +424,7 @@ func updateKubeConfig(IDToken string, refreshToken string, claims claim, a *app)
 	return nil
 }
 
-func open(url string) error {
+func (a *app) open(url string) error {
 
 	var cmd string
 	var args []string
@@ -436,5 +439,8 @@ func open(url string) error {
 		cmd = "xdg-open"
 	}
 	args = append(args, url)
+	if a.debug {
+		fmt.Printf("Exec: %s %v\n", cmd, args)
+	}
 	return exec.Command(cmd, args...).Start()
 }
