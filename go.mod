@@ -1,0 +1,56 @@
+module github.com/kellycampbell/k8s-auth-example
+
+go 1.15
+
+require (
+	github.com/PuerkitoBio/purell v1.1.0
+	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
+	github.com/coreos/go-oidc v0.0.0-20170711233713-a4973d9a4225
+	github.com/emicklei/go-restful v2.4.0+incompatible
+	github.com/fatih/structs v1.0.0
+	github.com/ghodss/yaml v1.0.0
+	github.com/go-openapi/jsonpointer v0.0.0-20170102174223-779f45308c19
+	github.com/go-openapi/jsonreference v0.0.0-20161105162150-36d33bfe519e
+	github.com/go-openapi/spec v0.0.0-20170914061247-7abd5745472f
+	github.com/go-openapi/swag v0.0.0-20170606142751-f3f9494671f9
+	github.com/gogo/protobuf v0.0.0-20170307180453-100ba4e88506
+	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
+	github.com/golang/protobuf v0.0.0-20170920220647-130e6b02ab05
+	github.com/golang/snappy v0.0.0-20170215233205-553a64147049
+	github.com/google/btree v0.0.0-20161217183710-316fb6d3f031
+	github.com/google/gofuzz v0.0.0-20170612174753-24818f796faf
+	github.com/gregjones/httpcache v0.0.0-20170926212834-c1f8028e62ad
+	github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce
+	github.com/hashicorp/go-cleanhttp v0.0.0-20170211013415-3573b8b52aa7
+	github.com/hashicorp/go-multierror v0.0.0-20170622060955-83588e72410a
+	github.com/hashicorp/go-rootcerts v0.0.0-20160503143440-6bb64b370b90
+	github.com/hashicorp/hcl v0.0.0-20170914154624-68e816d1c783
+	github.com/hashicorp/vault v0.8.3
+	github.com/howeyc/gopass v0.0.0-20170109162249-bf9dde6d0d2c
+	github.com/imdario/mergo v0.0.0-20160216103600-3e95a51e0639
+	github.com/inconshreveable/mousetrap v1.0.0
+	github.com/json-iterator/go v0.0.0-20170917080742-6ed27152e042
+	github.com/juju/ratelimit v0.0.0-20170523012141-5b9ff8664717
+	github.com/mailru/easyjson v0.0.0-20170902151237-2a92e673c9a6
+	github.com/mitchellh/go-homedir v0.0.0-20161203194507-b8bc1bf76747
+	github.com/mitchellh/mapstructure v0.0.0-20170523030023-d0303fe80992
+	github.com/petar/GoLLRB v0.0.0-20130427215148-53be0d36a84c
+	github.com/peterbourgon/diskv v2.0.1+incompatible
+	github.com/pquerna/cachecontrol v0.0.0-20170706045224-5475d973ea70
+	github.com/sethgrid/pester v0.0.0-20170919135742-0af5bab1e1ea
+	github.com/spf13/cobra v0.0.0-20170905172051-b78744579491
+	github.com/spf13/pflag v1.0.0
+	golang.org/x/crypto v0.0.0-20170927200519-c84b36c635ad
+	golang.org/x/net v0.0.0-20170927055102-0a9397675ba3
+	golang.org/x/oauth2 v0.0.0-20170928010508-bb50c06baba3
+	golang.org/x/sys v0.0.0-20170927054621-314a259e304f
+	golang.org/x/text v0.1.1-0.20170915090833-1cbadb444a80
+	google.golang.org/appengine v1.0.0
+	gopkg.in/inf.v0 v0.9.0
+	gopkg.in/square/go-jose.v2 v2.1.3
+	gopkg.in/yaml.v2 v2.0.0-20170812160011-eb3733d160e7
+	k8s.io/api v0.0.0-20170921200349-81aa34336d28
+	k8s.io/apimachinery v0.0.0-20170921165650-3b05bbfa0a45
+	k8s.io/client-go v0.0.0-20170922112243-82aa063804cf
+	k8s.io/kube-openapi v0.0.0-20170906091745-abfc5fbe1cf8
+)
